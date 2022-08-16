@@ -1,14 +1,12 @@
 package com.anmoraque.ejemplolistview
 
 import android.content.Context
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 
 //Esta clase hereda de BaseAdapter y sirve para implementar nuestro layout template
 //Recibe el contexto y un items que es una lista de frutas
@@ -18,17 +16,17 @@ class Adaptador(var context: Context, items: ArrayList<Fruta>):BaseAdapter() {
     init {
         this.items = items
     }
-
+    //Esta funcion regresa el numero de elementos de la lista
     override fun getCount(): Int {
         //Regresamos el contador del items seria opcional ? y para obtener el valor !!
         return items?.count()!!
     }
-
+    //Esta funcion regresa el objeto
     override fun getItem(p0: Int): Any {
         //Regresamos la posicion de cada items seria opcional ? y para obtener el valor !!
         return items?.get(p0)!!
     }
-
+    //Esta funcion regresa la posicion interna de mi elemento grafico
     override fun getItemId(p0: Int): Long {
         //Regresamos la posicion (p0) larga
         return p0.toLong()
@@ -55,7 +53,7 @@ class Adaptador(var context: Context, items: ArrayList<Fruta>):BaseAdapter() {
         }
         //Creamos un nuevo elemento item y lo obtenemos en la posicion que este renderizando
         //y lo transformamos a tipo fruta
-        val item = getItem(p0) as Fruta
+        val item = items?.get(p0) as Fruta
         //Ahora asignamos los valores de la fruta en el holder
         holder?.nombre?.text = item.nombre
         holder?.imagen?.setImageResource(item.imagen)
@@ -63,7 +61,7 @@ class Adaptador(var context: Context, items: ArrayList<Fruta>):BaseAdapter() {
         return vista!!
     }
     //Esta clase hay que implementarla porque es un patron y nos permite declarar
-    // nuestros objetos a traves de la interfaz grafica con (findbyid) solamente
+    // nuestros objetos a traves de la interfaz grafica (findbyid) solamente
     // una vez y no cada vez que se renderice la vista, recibe una vista
     private class ViewHolder (vista:View){
         var nombre:TextView? = null
@@ -72,6 +70,5 @@ class Adaptador(var context: Context, items: ArrayList<Fruta>):BaseAdapter() {
             nombre = vista.findViewById(R.id.nombre)
             imagen = vista.findViewById(R.id.imagen)
         }
-
     }
 }
